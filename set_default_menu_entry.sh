@@ -7,12 +7,13 @@
 # Red Hat distros
 
 # History:
-# v1.0  2018-09-30  charles.shih  Init version
+# v1.0    2018-09-30  charles.shih  Init version
+# v1.0.1  2018-09-30  charles.shih  Bug fix for no permission
 
 
 # Try to find the entries
 file=$(mktemp)
-grep -P "submenu|^menuentry" /boot/grub2/grub.cfg | cut -d "'" -f 2 > $file
+sudo grep -P "submenu|^menuentry" /boot/grub2/grub.cfg | cut -d "'" -f 2 > $file
 max_entry=$(wc -l $file | cut -d " " -f 1)
 : ${max_entry:=0}
 
