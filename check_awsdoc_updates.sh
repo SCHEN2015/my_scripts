@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Description:
+# Run this scripts periodically to check the updates of AWS instance types.
+
+# History:
+# v0.1  2018-06-07  charles.shih  Init version
+# v0.2  2018-09-19  charles.shih  Change output format
+
 set -e
 
 timestamp=$(date +%Y%m%d%H%M%S)
@@ -24,7 +31,7 @@ previous=$(ls instance-types.*.html | grep -v $filename | tail -n 1)
 md5sum $previous $filename
 
 title "The brief diff results"
-diff -s -y --suppress-common-lines $previous $filename
+diff -s --suppress-common-lines $previous $filename
 
 exit 0
 
