@@ -1,11 +1,21 @@
 #!/bin/bash
 
 # Description:
-# There is a bug on my laptop, sometimes the fan goes its maximum speed;
-# Run this script to slow down the fan speed in such a situation.
+# When system fan goes its maximum speed, run this script to slow down the fan speed.
 
-# History:
-# v1.0  2018-04-12  charles.shih  Init version
+# Enable the fan control
+# $ echo -e "\noptions thinkpad_acpi fan_control=1" >>/etc/modprobe.d/thinkpad_acpi.conf
+# $ modprobe -c | grep ^options | grep thinkpad_acpi
+# options thinkpad_acpi fan_control=1
+# $ modprobe -r thinkpad_acpi
+# $ modprobe thinkpad_acpi
 
-sudo bash -c "echo level 1 > /proc/acpi/ibm/fan"
+[ -z $1 ] && lv=1 || lv=$1
+
+cat /proc/acpi/ibm/fan
+echo '----------'
+echo 'SETTING...'
+sudo bash -c "echo level $lv > /proc/acpi/ibm/fan"
+echo '----------'
+cat /proc/acpi/ibm/fan
 
